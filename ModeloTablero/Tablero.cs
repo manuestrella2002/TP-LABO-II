@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-
+using TP_LABO_II;
 
 namespace ModeloTablero
 {
@@ -27,7 +26,7 @@ namespace ModeloTablero
             }
         }
     
-        public void MarcarProx_MovLegal(Celda CeldaActual, String PiezaAjedrez) //Probablemente  hay que cambiar "string chessPiece" por Pieza1 de tipo Pieza
+        public void MarcarProx_MovLegal(Celda CeldaActual, Piezas PiezaAjedrez) //Probablemente  hay que cambiar "string chessPiece" por Pieza1 de tipo Pieza
         {
             //Paso 1: Borrar todos los movimientos legales previos
             //BASICAMENTE LIMPIA EL TABLERO
@@ -40,12 +39,20 @@ namespace ModeloTablero
                 }
             }
 
+            Matriz[CeldaActual.NroFila, CeldaActual.NroColumna].Ocupados = true;
+
+            Caballo caballo = new Caballo();
+            Alfil alfil = new Alfil();
+            Rey rey = new Rey();
+            Reina reina = new Reina();
+            Torre torre = new Torre();
+
 
             //Paso 2: Buscar todos los movientos legales y marcar las celdas como 1
             switch(PiezaAjedrez)
             {
                 //PENSAMOS HACER DINAMIC CAST PARA CADA UNA DE LAS PIEZAS
-               case "Caballo":
+               case Caballo pieza_caballo:
                     Matriz[CeldaActual.NroFila + 2, CeldaActual.NroColumna +1].Legal_Movim = true;
                     Matriz[CeldaActual.NroFila + 2, CeldaActual.NroColumna - 1].Legal_Movim = true;
                     Matriz[CeldaActual.NroFila - 2, CeldaActual.NroColumna + 1].Legal_Movim = true;
@@ -56,7 +63,7 @@ namespace ModeloTablero
                     Matriz[CeldaActual.NroFila - 1, CeldaActual.NroColumna - 2].Legal_Movim = true;
 
                     break;
-                case "Rey":
+                case Rey pieza_rey:
                     Matriz[CeldaActual.NroFila - 1, CeldaActual.NroColumna].Legal_Movim = true;
                     Matriz[CeldaActual.NroFila + 1, CeldaActual.NroColumna].Legal_Movim = true;
                     Matriz[CeldaActual.NroFila - 1, CeldaActual.NroColumna - 1].Legal_Movim = true;
@@ -67,7 +74,7 @@ namespace ModeloTablero
                     Matriz[CeldaActual.NroFila + 1, CeldaActual.NroColumna - 1].Legal_Movim = true;
 
                     break;
-                case "Reina":
+                case Reina pieza_reina:
                     //ABAJO 
                     for (int i = CeldaActual.NroFila+1; i < Size ; i++)
                     {
@@ -121,7 +128,7 @@ namespace ModeloTablero
                     }
                     break;
 
-                case "Torre":
+                case Torre pieza_torre:
                     //ABAJO 
                     for (int i = CeldaActual.NroFila + 1; i < Size; i++)
                     {
@@ -145,7 +152,7 @@ namespace ModeloTablero
                     }
                     break;
 
-                case "Alfil":
+                case Alfil pieza_alfil:
 
                     //DIAGONAL HACIA ABAJO DERECHA
                      r = CeldaActual.NroColumna;
@@ -179,9 +186,6 @@ namespace ModeloTablero
                     break;
 
             }
-        
-        
-        
         }
     }
 }

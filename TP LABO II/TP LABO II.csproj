@@ -46,18 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Juego.cs" />
-    <Compile Include="Menu_Principal.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Menu_Principal.Designer.cs">
-      <DependentUpon>Menu_Principal.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Menu_Principal.resx">
-      <DependentUpon>Menu_Principal.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
