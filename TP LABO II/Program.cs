@@ -36,32 +36,39 @@ namespace TP_LABO_II
 
             //MOSTAR EL TABLERO VACIO
             ImprimirTablero(MiTablero);
-            //PIDO UNA CORDENADA X,Y DE DONDE PONER LA PIEZA
-            Celda Celda_Actual = ColocarCeldaActual(4,4);
-            Celda_Actual.Ocupados = true;
-            //CALCULO DE TODOS LOS MOVIMIENTOS LEGALES POSIBLES, ES DECIR, A DONDE SE PUEDE MOVER LA FICHA
-            MiTablero.MarcarProx_MovLegal(Celda_Actual, Caballo1);
 
+            //PIDO UNA CORDENADA X,Y DE DONDE PONER LA PIEZA
+            Celda Celda_Actual = ColocarCeldaActual(6,5);
+            Celda_Actual.Ocupados = true;
+           
+            //CALCULO DE TODOS LOS MOVIMIENTOS LEGALES POSIBLES, ES DECIR, A DONDE SE PUEDE MOVER LA FICHA
+            MiTablero.MarcarProx_MovLegal(Celda_Actual, Torre1);
+
+
+            //VUELVO A IMPIRMIR PARA VERIFICAR
             ImprimirTablero(MiTablero);
 
 
 
         }
-        //PIDO CORDENADAS X,Y Y SE RETORNA UNA POSICION DE UNA CELDA
+
+        //METODO PARA DAR CORDENADAS X,Y SE RETORNA UNA POSICION DE UNA CELDA
         private static Celda ColocarCeldaActual(int Fila_Actual, int Columna_Actual)
         {
    
 
             MiTablero.Matriz[Fila_Actual, Columna_Actual].Ocupados = true;
+
+
             return MiTablero.Matriz[Fila_Actual, Columna_Actual];
         }
 
         //Imprime el Tablero en la consola. Usar x para el lugar de la pieza, + para movimientos legales y .
         private static void ImprimirTablero(Tablero miTablero)
         {
-            for (int i = 0; i < miTablero.Size; i++)
+            for (int i = 0; i < miTablero.Tam; i++)
             {
-                for (int j = 0; j < miTablero.Size; j++)
+                for (int j = 0; j < miTablero.Tam; j++)
                 {
                     Celda C_aux = miTablero.Matriz[i, j];
                     if (C_aux.Ocupados==true)
@@ -71,10 +78,10 @@ namespace TP_LABO_II
                     else if(C_aux.Legal_Movim==true)
                     {
                         Console.Write("+");
-                    }
+                    }ASASDAÑFXKJCM BB  ZXNCJEW46328910¿/*45212
                     else
                     {
-                        Console.Write(".");
+                        Console.Write("|.|");
                     }
                 }
                 Console.WriteLine();
