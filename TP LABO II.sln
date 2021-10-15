@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TP LABO II", "TP LABO II\TP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModeloTablero", "ModeloTablero\ModeloTablero.csproj", "{84252091-0B94-417D-94E9-8C986BB0468C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tablero TP LABO II", "Tablero TP LABO II\Tablero TP LABO II.csproj", "{A4D05D67-0C57-4B7F-9693-5201A3B577D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{84252091-0B94-417D-94E9-8C986BB0468C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84252091-0B94-417D-94E9-8C986BB0468C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84252091-0B94-417D-94E9-8C986BB0468C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4D05D67-0C57-4B7F-9693-5201A3B577D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4D05D67-0C57-4B7F-9693-5201A3B577D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4D05D67-0C57-4B7F-9693-5201A3B577D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4D05D67-0C57-4B7F-9693-5201A3B577D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

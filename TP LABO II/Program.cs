@@ -78,7 +78,7 @@ namespace TP_LABO_II
                     else if(C_aux.Legal_Movim==true)
                     {
                         Console.Write("+");
-                    }ASASDAÑFXKJCM BB  ZXNCJEW46328910¿/*45212
+                    }
                     else
                     {
                         Console.Write("|.|");
