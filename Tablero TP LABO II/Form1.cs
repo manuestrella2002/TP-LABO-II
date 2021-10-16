@@ -9,6 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TP_LABO_II;
+using System.Drawing.Printing;
+using System.IO;
+using System.Reflection;
+using System.Security.Permissions;
+
 
 namespace Tablero_TP_LABO_II
 {
@@ -56,19 +61,19 @@ namespace Tablero_TP_LABO_II
                     //LE DOY COLOR A LOS BOTONES REVISARRRRRR
                     if (i%2 == 0 && j%2 == 0)
                     {
-                        Matriz_Botones[i, j].BackColor = Color.FromArgb(229, 229, 229);
+                        Matriz_Botones[i, j].BackColor = Color.FromArgb(217, 217, 217);
                     }
                     if (i % 2 == 0 && j % 2 != 0) 
                     {
-                        Matriz_Botones[i, j].BackColor = Color.FromArgb(154, 154, 154);
+                        Matriz_Botones[i, j].BackColor = Color.FromArgb(146, 146, 146);
                     }
                     if (i % 2 != 0 && j % 2 == 0)
                     {
-                        Matriz_Botones[i, j].BackColor = Color.FromArgb(229, 229, 229);
+                        Matriz_Botones[i, j].BackColor = Color.FromArgb(146, 146, 146);
                     }
                     if (i % 2 != 0 && j % 2 != 0)
                     {
-                        Matriz_Botones[i, j].BackColor = Color.FromArgb(154, 154, 154);
+                        Matriz_Botones[i, j].BackColor = Color.FromArgb(217, 217, 217);
                     }
 
                     //MUESTRO EN CADA BOTON LA POSICION QUE OCUPA
@@ -96,11 +101,15 @@ namespace Tablero_TP_LABO_II
             int y = Lugar.Y;
 
             Celda Celda_Actual = MiTablero.Matriz[x, y];
-
+            //DEPENDE D ELO QUE SE ELIJA SE CREA UNA VARIABLE Y LUEGO SE CALCULAN LOS MOVIMIENTOS POSIBLES
             if (comboBox1.Text=="Caballo")
             {
                 Caballo Caballo1 = new Caballo();
                 MiTablero.MarcarProx_MovLegal(Celda_Actual, Caballo1);
+                string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Iconos Ajedrez\Caballo.jpg");
+
+                Matriz_Botones[x, y].BackgroundImage = Image.FromFile(path);
+                Matriz_Botones[x, y].BackgroundImageLayout = ImageLayout.Zoom;
             }
             if (comboBox1.Text == "Torre")
             {
@@ -129,7 +138,7 @@ namespace Tablero_TP_LABO_II
                 {
                     if (MiTablero.Matriz[i,j].Legal_Movim==true)
                     {
-                        Matriz_Botones[i, j].BackColor = Color.FromArgb(34, 32, 34);
+                        Matriz_Botones[i, j].BackColor = Color.FromArgb(32, 32, 32);
                     }
                 }
             }
