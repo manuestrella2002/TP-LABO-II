@@ -56,7 +56,7 @@ namespace Tablero_TP_LABO_II
                     panel1.Controls.Add(Matriz_Botones[i, j]);
 
                     //COLOCO CADA BOTON EN UNA POSICION ESPECIFICA
-                    Matriz_Botones[i, j].Location = new Point(i * buttonSize, j * buttonSize);
+                    Matriz_Botones[i, j].Location = new Point(j * buttonSize, i * buttonSize);
 
                     //LE DOY COLOR A LOS BOTONES REVISARRRRRR
                     if (i%2 == 0 && j%2 == 0)
