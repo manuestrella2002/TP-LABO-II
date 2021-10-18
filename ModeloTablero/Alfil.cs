@@ -8,5 +8,7 @@ namespace TP_LABO_II
 {
     public class Alfil : Piezas
     {
+      
+
     }
 }

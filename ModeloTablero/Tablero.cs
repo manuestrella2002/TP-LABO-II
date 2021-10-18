@@ -55,7 +55,7 @@ namespace ModeloTablero
                case Caballo pieza_caballo:
                     if (VerificarLugar(CeldaActual.NroFila-2,CeldaActual.NroColumna-1))
                     {
-                        Matriz[CeldaActual.NroFila - 2, CeldaActual.NroColumna + 1].Legal_Movim = true;
+                        Matriz[CeldaActual.NroFila - 2, CeldaActual.NroColumna - 1].Legal_Movim = true;
                     }
                     if(VerificarLugar(CeldaActual.NroFila + 2, CeldaActual.NroColumna + 1))
                     {
@@ -86,6 +86,7 @@ namespace ModeloTablero
                         Matriz[CeldaActual.NroFila - 1, CeldaActual.NroColumna - 2].Legal_Movim = true;
                     }
                     break;
+
                 case Rey pieza_rey:
                     if (VerificarLugar(CeldaActual.NroFila - 1, CeldaActual.NroColumna))
                     {
@@ -286,6 +287,20 @@ namespace ModeloTablero
 
             }
         }
+
+        public void ReiniciarTablero()
+        {
+            for (int i = 0; i < Tam; i++)
+            {
+                for (int j = 0; j < Tam; j++)
+                {
+                    Matriz[i, j].Ocupados = false;
+                    Matriz[i, j].Legal_Movim = false;
+                }
+            }
+        }
+
+
         //VERIFICA SI LA COORDENADA PASADDA EXISTE EN EL TABLERO SINO RETORNA FALSE
         private bool VerificarLugar(int x1, int y2)
         {
@@ -299,5 +314,10 @@ namespace ModeloTablero
                 return false;
             }
         }
+
+
     }
+
+
+   
 }
