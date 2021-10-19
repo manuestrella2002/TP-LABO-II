@@ -301,6 +301,7 @@ namespace ModeloTablero
         }
 
 
+
         //VERIFICA SI LA COORDENADA PASADDA EXISTE EN EL TABLERO SINO RETORNA FALSE
         private bool VerificarLugar(int x1, int y2)
         {

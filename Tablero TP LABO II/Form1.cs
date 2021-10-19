@@ -56,29 +56,50 @@ namespace Tablero_TP_LABO_II
 
         }
 
-
-
-        private bool Backtraking()
+        private void Poda()
         {
             Random myObject = new Random();
             int ranNum1 = myObject.Next(3, 4);
             int ranNum2 = myObject.Next(3, 4);
 
             //METODO DE PODA
-                //COLOCAMOS REINA EN ALGUNO DE LOS CUATRO CUADRADOS CENTRALES
-                comboBox1.Text = "Reina";
-                Lista_Piezas.Remove("Reina");
-                Matriz_Botones_Click(Matriz_Botones[ranNum1, ranNum2],null);
-                
-
-                //COLOCAMOS TORRE EN LA ESQUINA SUPERIOR IZQUIERDA POSICION(0,0)
-                comboBox1.Text = "Torre";
-                Matriz_Botones_Click(Matriz_Botones[0, 0], null);
+            //COLOCAMOS REINA EN ALGUNO DE LOS CUATRO CUADRADOS CENTRALES
+            comboBox1.Text = "Reina";
+            Lista_Piezas.Remove(comboBox1.Text);
+            Matriz_Botones_Click(Matriz_Botones[ranNum1, ranNum2], null);
 
 
+            //COLOCAMOS TORRE EN LA ESQUINA SUPERIOR IZQUIERDA POSICION(0,0)
+            comboBox1.Text = "Torre";
+            Lista_Piezas.Remove(comboBox1.Text);
+            Matriz_Botones_Click(Matriz_Botones[0, 0], null);
+
+        }
 
 
+        private bool Backtraking(int n,int columna)
+        {
+            {
+                if (Lista_Piezas.Count == 0 )
+                {
+                    return true;
+                }
+                //variable res is use for possible backtracking 
+                bool res = false;
+                for (int i = 0; i <= MiTablero.Tam - 1; i++)
+                {
+                    if (MiTablero.Matriz[])
+                    {
+                        grid[row][i] = 1;
+                        //recursive call solve(n, row+1) for next queen (row+1)
+                        res = Backtraking(n, row + 1) || res;//if res ==false then backtracking will occur 
+                                                       //by assigning the grid[row][i] = 0
 
+                        grid[row][i] = 0;
+                    }
+                }
+                return res;
+            }
 
             return true;
         }
@@ -153,6 +174,15 @@ namespace Tablero_TP_LABO_II
 
             Celda Celda_Actual = MiTablero.Matriz[x, y];
             //DEPENDE D ELO QUE SE ELIJA SE CREA UNA VARIABLE Y LUEGO SE CALCULAN LOS MOVIMIENTOS POSIBLES
+            
+            //BUSCO SI LA PIEZA YA SE ELIMINO
+            if (Lista_Piezas.BinarySearch(comboBox1.Text)<0)
+            {
+                return;
+            }
+
+           
+
             if (comboBox1.Text=="Caballo")
             {
                 Caballo Caballo1 = new Caballo();
@@ -171,7 +201,17 @@ namespace Tablero_TP_LABO_II
                 Matriz_Botones[x, y].BackgroundImage = Image.FromFile(path);
                 Matriz_Botones[x, y].BackgroundImageLayout = ImageLayout.Zoom;
             }
-            if (comboBox1.Text == "Alfil")
+            if (comboBox1.Text == "Alfil_Blanco")
+            {
+                Alfil Alfil1 = new Alfil();
+                MiTablero.MarcarProx_MovLegal(Celda_Actual, Alfil1);
+                string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Iconos Ajedrez\Alfil.jpg");
+
+                Matriz_Botones[x, y].BackgroundImage = Image.FromFile(path);
+                Matriz_Botones[x, y].BackgroundImageLayout = ImageLayout.Zoom;
+
+            }
+            if (comboBox1.Text == "Alfil_Negro")
             {
                 Alfil Alfil1 = new Alfil();
                 MiTablero.MarcarProx_MovLegal(Celda_Actual, Alfil1);

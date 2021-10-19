@@ -53,7 +53,8 @@ namespace Tablero_TP_LABO_II
             "Torre",
             "Reina",
             "Rey",
-            "Alfil"});
+            "Alfil_Negro",
+            "Alfil_Blanco"});
             this.comboBox1.Location = new System.Drawing.Point(445, 10);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
