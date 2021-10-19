@@ -35,8 +35,12 @@ namespace Tablero_TP_LABO_II
            "Reina",
            "Rey"
         };
-        
-   
+        static List<string> Lista_Piezas_Sacadas = new List<string>()
+        {
+           
+        };
+
+
 
         //Matriz de 2 dimensiones de botones
         public Button[,] Matriz_Botones = new Button[MiTablero.Tam, MiTablero.Tam];
@@ -48,12 +52,22 @@ namespace Tablero_TP_LABO_II
             InitializeComponent();
             ArmarMatriz();
 
+            
 
             Poda();
-           Solucion=Backtracking(0);
-            if (Solucion)
+
+
+            Backtracking();
+            
+
+            for (int i = 0; i < 8; i++)
             {
-                MessageBox.Show("Funciono");
+
+            }
+
+            if (Solucion==true)
+            {
+                MessageBox.Show("Funcionó");
             }
 
 
@@ -77,72 +91,148 @@ namespace Tablero_TP_LABO_II
             Lista_Piezas.Remove(comboBox1.Text);
             Matriz_Botones_Click(Matriz_Botones[0, 0], null);
 
+            //COLOCAMOS TORRE EN LA ESQUINA SUPERIOR IZQUIERDA POSICION(7,7)
+            comboBox1.Text = "Torre2";
+            Lista_Piezas.Remove(comboBox1.Text);
+            Matriz_Botones_Click(Matriz_Botones[7, 7], null);
+
         }
-
-
-        public bool Backtracking(int Fila)//N ES NUMERO PIEZAS
+        public bool VerificarSolucion()
         {
-            // if `N` queens are placed successfully, print the solution
-            if (Fila == 8)
+            int contador = 0;
+            for (int i = 0; i < MiTablero.Tam; i++)
+            {
+                for (int j = 0; j < MiTablero.Tam; j++)
+                {
+                    if (MiTablero.Matriz[i,j].Ocupados==true || MiTablero.Matriz[i, j].Legal_Movim == true)
+                    {
+                        //MessageBox.Show("Hay"+ contador);
+                        contador++;
+                    }
+                }
+            }
+            if (contador==64)
             {
                 return true;
             }
-
-            // place queen at every square in the current row `r`
-            // and recur for each valid movement
-            for (int i = 0; i < Lista_Piezas.Count; i++)
+            else
             {
-                // if no two queens threaten each other
-                if (ChequearLugares(Fila, i))
+                return false;
+            }
+        }
+
+        public bool Backtracking()//N ES NUMERO PIEZAS
+        {
+            /*
+                // if `N` queens are placed successfully, print the solution
+                //if (Fila == 8)
+                //{
+                //    return true;
+                //}
+                ////Random myObject = new Random();
+                ////int ranNum1 = myObject.Next(0, Lista_Piezas.Count);
+
+                // place queen at every square in the current row `r`
+                // and recur for each valid movement
+                //for (int i = 2; i < MiTablero.Tam-1; i++)
+                //{
+                //    // if no two queens threaten each other
+                //    if (ChequearLugares(Fila, i))
+                //    {
+                //        // place queen on the current square
+
+                //        Matriz_Botones_Click(Matriz_Botones[Fila, i], null);
+
+
+                //        // recur for the next row
+
+
+                //        //// backtrack and remove the queen from the current square
+                //        //MiTablero.Matriz[Fila,i].Ocupados=false;
+                //    }
+                //}
+            */
+            Random myObject = new Random();
+            int ranNum1 = myObject.Next(0, Lista_Piezas.Count);
+
+            for (int i = 1; i < 7; i++)
+            {
+                for (int j = 1; j < 7; j++)
                 {
-                    // place queen on the current square
-                    Random myObject = new Random();
-                    int ranNum1 = myObject.Next(0, Lista_Piezas.Count);
-
-                    comboBox1.Text = Lista_Piezas.ElementAt(ranNum1);
-                    Matriz_Botones_Click(Matriz_Botones[Fila, i], null);
-                    Lista_Piezas.Remove(comboBox1.Text);
-
-                    // recur for the next row
-                    Backtracking(Fila + 1);
-
-                    // backtrack and remove the queen from the current square
-                    MiTablero.Matriz[Fila,i].Ocupados=false;
+                    if (ChequearLugares(i, j)==false)
+                    {
+                        comboBox1.Text = Lista_Piezas[ranNum1];
+                        Matriz_Botones_Click(Matriz_Botones[i, j], null);
+                        Lista_Piezas_Sacadas.Add(comboBox1.Text);
+                        Lista_Piezas.Remove(comboBox1.Text);
+                        
+                        if (Lista_Piezas.Count==0)
+                        {
+                            if (VerificarSolucion()==false)
+                            {
+                                MiTablero.DesmarcarLugares(MiTablero.Matriz[i, j], Lista_Piezas_Sacadas.Last());
+                                Lista_Piezas.Add(Lista_Piezas_Sacadas.Last());
+                                Lista_Piezas_Sacadas.RemoveAt(Lista_Piezas_Sacadas.Count - 1);
+                                Backtracking();
+                            }
+                            
+                            break;
+                        }
+                        Backtracking();
+                    }
                 }
             }
+            
             return true;
         }
         public bool ChequearLugares(int fila, int columna)
         {
-            // return 0 if two queens share the same column
-            for (int i = 0; i < fila; i++)
+            //if (comboBox1.Text == "Reina")
+            //{
+            //    // return 0 if two queens share the same column
+            //    for (int i = 0; i < fila; i++)
+            //    {
+            //        if (MiTablero.Matriz[i, columna].Ocupados == true || MiTablero.Matriz[i, columna].Legal_Movim == true)
+            //        {
+            //            return false;
+            //        }
+            //    }
+
+            //    // return 0 if two queens share the same `` diagonal
+            //    for (int i = fila, j = columna; i >= 0 && j >= 0; i--, j--)
+            //    {
+            //        if (MiTablero.Matriz[i, j].Ocupados == true || MiTablero.Matriz[i, j].Legal_Movim == true)
+            //        {
+            //            return false;
+            //        }
+            //    }
+
+            //    // return 0 if two queens share the same `/` diagonal
+            //    for (int i = fila, j = columna; i >= 0 && j < Lista_Piezas.Count; i--, j++)
+            //    {
+            //        if (MiTablero.Matriz[i, j].Ocupados == true || MiTablero.Matriz[i, j].Legal_Movim == true)
+            //        {
+            //            return false;
+            //        }
+            //    }
+            //    return true;
+            //}
+
+
+            //return true;
+            if (MiTablero.Matriz[fila,columna].Ocupados==true || MiTablero.Matriz[fila,columna].Legal_Movim==true)
             {
-                if (MiTablero.Matriz[i,columna].Ocupados == true || MiTablero.Matriz[i, columna].Legal_Movim == true)
-                {
-                    return false;
-                }
+                return true;
+            }
+            else
+            {
+                return false;
             }
 
-            // return 0 if two queens share the same `` diagonal
-            for (int i = fila, j = columna; i >= 0 && j >= 0; i--, j--)
-            {
-                if (MiTablero.Matriz[i, j].Ocupados == true || MiTablero.Matriz[i, j].Legal_Movim == true)
-                {
-                    return false;
-                }
-            }
 
-            // return 0 if two queens share the same `/` diagonal
-            for (int i = fila, j = columna; i >= 0 && j < Lista_Piezas.Count; i--, j++)
-            {
-                if (MiTablero.Matriz[i, j].Ocupados == true || MiTablero.Matriz[i, j].Legal_Movim == true)
-                {
-                    return false;
-                }
-            }
-
-            return true;
         }
+
+
 
         private void ArmarMatriz()
         {

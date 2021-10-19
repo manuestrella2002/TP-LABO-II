@@ -412,6 +412,376 @@ namespace ModeloTablero
             }
         }
 
+        public void DesmarcarLugares(Celda CeldaActual, string PiezaAjedrez)
+        {
+            {
+
+                //CAMBIA LA POSICION DONDE SE COLOCA LA PIEZA A OCUPADO
+                Matriz[CeldaActual.NroFila, CeldaActual.NroColumna].Ocupados = false;
+
+
+
+
+                //Paso 2: Buscar todos los movientos legales y marcar las celdas como 1
+                switch (PiezaAjedrez)
+                {
+                    //PENSAMOS HACER DINAMIC CAST PARA CADA UNA DE LAS PIEZAS
+                    case "Caballo1":
+                        if (VerificarLugar(CeldaActual.NroFila - 2, CeldaActual.NroColumna - 1))
+                        {
+                            Matriz[CeldaActual.NroFila - 2, CeldaActual.NroColumna - 1].Legal_Movim = false;
+                        }
+                        if (VerificarLugar(CeldaActual.NroFila + 2, CeldaActual.NroColumna + 1))
+                        {
+                            Matriz[CeldaActual.NroFila + 2, CeldaActual.NroColumna + 1].Legal_Movim = false;
+                        }
+                        if (VerificarLugar(CeldaActual.NroFila + 2, CeldaActual.NroColumna - 1))
+                        {
+                            Matriz[CeldaActual.NroFila + 2, CeldaActual.NroColumna - 1].Legal_Movim = false;
+                        }
+                        if (VerificarLugar(CeldaActual.NroFila - 2, CeldaActual.NroColumna + 1))
+                        {
+                            Matriz[CeldaActual.NroFila - 2, CeldaActual.NroColumna + 1].Legal_Movim = false;
+                        }
+                        if (VerificarLugar(CeldaActual.NroFila + 1, CeldaActual.NroColumna + 2))
+                        {
+                            Matriz[CeldaActual.NroFila + 1, CeldaActual.NroColumna + 2].Legal_Movim = false;
+                        }
+                        if (VerificarLugar(CeldaActual.NroFila + 1, CeldaActual.NroColumna - 2))
+                        {
+                            Matriz[CeldaActual.NroFila + 1, CeldaActual.NroColumna - 2].Legal_Movim = false;
+                        }
+                        if (VerificarLugar(CeldaActual.NroFila - 1, CeldaActual.NroColumna + 2))
+                        {
+                            Matriz[CeldaActual.NroFila - 1, CeldaActual.NroColumna + 2].Legal_Movim = false;
+                        }
+                        if (VerificarLugar(CeldaActual.NroFila - 1, CeldaActual.NroColumna - 2))
+                        {
+                            Matriz[CeldaActual.NroFila - 1, CeldaActual.NroColumna - 2].Legal_Movim = false;
+                        }
+                        break;
+
+                    case "Caballo2":
+                        if (VerificarLugar(CeldaActual.NroFila - 2, CeldaActual.NroColumna - 1))
+                        {
+                            Matriz[CeldaActual.NroFila - 2, CeldaActual.NroColumna - 1].Legal_Movim = false;
+                        }
+                        if (VerificarLugar(CeldaActual.NroFila + 2, CeldaActual.NroColumna + 1))
+                        {
+                            Matriz[CeldaActual.NroFila + 2, CeldaActual.NroColumna + 1].Legal_Movim = false;
+                        }
+                        if (VerificarLugar(CeldaActual.NroFila + 2, CeldaActual.NroColumna - 1))
+                        {
+                            Matriz[CeldaActual.NroFila + 2, CeldaActual.NroColumna - 1].Legal_Movim = false;
+                        }
+                        if (VerificarLugar(CeldaActual.NroFila - 2, CeldaActual.NroColumna + 1))
+                        {
+                            Matriz[CeldaActual.NroFila - 2, CeldaActual.NroColumna + 1].Legal_Movim = false;
+                        }
+                        if (VerificarLugar(CeldaActual.NroFila + 1, CeldaActual.NroColumna + 2))
+                        {
+                            Matriz[CeldaActual.NroFila + 1, CeldaActual.NroColumna + 2].Legal_Movim = false;
+                        }
+                        if (VerificarLugar(CeldaActual.NroFila + 1, CeldaActual.NroColumna - 2))
+                        {
+                            Matriz[CeldaActual.NroFila + 1, CeldaActual.NroColumna - 2].Legal_Movim = false;
+                        }
+                        if (VerificarLugar(CeldaActual.NroFila - 1, CeldaActual.NroColumna + 2))
+                        {
+                            Matriz[CeldaActual.NroFila - 1, CeldaActual.NroColumna + 2].Legal_Movim = false;
+                        }
+                        if (VerificarLugar(CeldaActual.NroFila - 1, CeldaActual.NroColumna - 2))
+                        {
+                            Matriz[CeldaActual.NroFila - 1, CeldaActual.NroColumna - 2].Legal_Movim = false;
+                        }
+                        break;
+
+                    case "Rey":
+                        if (VerificarLugar(CeldaActual.NroFila - 1, CeldaActual.NroColumna))
+                        {
+                            Matriz[CeldaActual.NroFila - 1, CeldaActual.NroColumna].Legal_Movim = false;
+                        }
+                        if (VerificarLugar(CeldaActual.NroFila + 1, CeldaActual.NroColumna))
+                        {
+                            Matriz[CeldaActual.NroFila + 1, CeldaActual.NroColumna].Legal_Movim = false;
+                        }
+                        if (VerificarLugar(CeldaActual.NroFila - 1, CeldaActual.NroColumna - 1))
+                        {
+                            Matriz[CeldaActual.NroFila - 1, CeldaActual.NroColumna - 1].Legal_Movim = false;
+                        }
+                        if (VerificarLugar(CeldaActual.NroFila + 1, CeldaActual.NroColumna + 1))
+                        {
+                            Matriz[CeldaActual.NroFila + 1, CeldaActual.NroColumna + 1].Legal_Movim = false;
+                        }
+                        if (VerificarLugar(CeldaActual.NroFila, CeldaActual.NroColumna - 1))
+                        {
+                            Matriz[CeldaActual.NroFila, CeldaActual.NroColumna - 1].Legal_Movim = false;
+                        }
+                        if (VerificarLugar(CeldaActual.NroFila, CeldaActual.NroColumna + 1))
+                        {
+                            Matriz[CeldaActual.NroFila, CeldaActual.NroColumna + 1].Legal_Movim = false;
+                        }
+                        if (VerificarLugar(CeldaActual.NroFila - 1, CeldaActual.NroColumna + 1))
+                        {
+                            Matriz[CeldaActual.NroFila - 1, CeldaActual.NroColumna + 1].Legal_Movim = false;
+                        }
+                        if (VerificarLugar(CeldaActual.NroFila + 1, CeldaActual.NroColumna - 1))
+                        {
+                            Matriz[CeldaActual.NroFila + 1, CeldaActual.NroColumna - 1].Legal_Movim = false;
+                        }
+                        break;
+                    case "Reina":
+                        //ABAJO 
+                        for (int i = CeldaActual.NroFila + 1; i < Tam; i++)
+                        {
+                            if (VerificarLugar(i, CeldaActual.NroColumna))
+                            {
+                                Matriz[i, CeldaActual.NroColumna].Legal_Movim = false;
+                            }
+                        }
+                        //ARRIBA
+                        for (int i = CeldaActual.NroFila - 1; i >= 0; i--)
+                        {
+                            if (VerificarLugar(i, CeldaActual.NroColumna))
+                            {
+                                Matriz[i, CeldaActual.NroColumna].Legal_Movim = false;
+                            }
+
+                        }
+
+                        //PARA LA DERECHA
+                        for (int j = CeldaActual.NroColumna + 1; j < Tam; j++)
+                        {
+                            if (VerificarLugar(CeldaActual.NroFila, j))
+                            {
+                                Matriz[CeldaActual.NroFila, j].Legal_Movim = false;
+                            }
+                        }
+                        //PARA LA IZQUIERDA
+                        for (int j = CeldaActual.NroColumna - 1; j >= 0; j--)
+                        {
+                            if (VerificarLugar(CeldaActual.NroFila, j))
+                            {
+                                Matriz[CeldaActual.NroFila, j].Legal_Movim = false;
+                            }
+                        }
+
+                        //DIAGONAL HACIA ABAJO DERECHA
+                        int r = CeldaActual.NroColumna;
+
+                        for (int i = CeldaActual.NroFila + 1; i < Tam; i++)
+                        {
+                            r++;
+                            if (VerificarLugar(i, r))
+                            {
+                                Matriz[i, r].Legal_Movim = false;
+                            }
+                        }
+                        //DIAGONAL HACIA ARRIBA IZQUIERDA
+                        r = CeldaActual.NroColumna;
+                        for (int i = CeldaActual.NroFila - 1; i >= 0; i--)
+                        {
+                            r--;
+                            if (VerificarLugar(i, r))
+                            {
+                                Matriz[i, r].Legal_Movim = false;
+                            }
+                        }
+                        //DIAGONAL HACIA ARRIBA DERECHA
+                        r = CeldaActual.NroColumna;
+                        for (int i = CeldaActual.NroFila - 1; i >= 0; i--)
+                        {
+                            r++;
+                            if (VerificarLugar(i, r))
+                            {
+                                Matriz[i, r].Legal_Movim = false;
+                            }
+                        }
+                        //DIAGONAL HACIA ABAJO IZQUIERDA
+                        r = CeldaActual.NroColumna;
+                        for (int i = CeldaActual.NroFila + 1; i < Tam; i++)
+                        {
+                            r--;
+                            if (VerificarLugar(i, r))
+                            {
+                                Matriz[i, r].Legal_Movim = false;
+                            }
+
+                        }
+                        break;
+
+                    case "Torre1":
+                        //ABAJO 
+                        for (int i = CeldaActual.NroFila + 1; i < Tam; i++)
+                        {
+                            if (VerificarLugar(i, CeldaActual.NroColumna))
+                            {
+                                Matriz[i, CeldaActual.NroColumna].Legal_Movim = false;
+                            }
+                        }
+                        //ARRIBA
+                        for (int i = CeldaActual.NroFila - 1; i >= 0; i--)
+                        {
+                            if (VerificarLugar(i, CeldaActual.NroColumna))
+                            {
+                                Matriz[i, CeldaActual.NroColumna].Legal_Movim = false;
+                            }
+
+                        }
+
+                        //PARA LA DERECHA
+                        for (int j = CeldaActual.NroColumna + 1; j < Tam; j++)
+                        {
+                            if (VerificarLugar(CeldaActual.NroFila, j))
+                            {
+                                Matriz[CeldaActual.NroFila, j].Legal_Movim = false;
+                            }
+                        }
+                        //PARA LA IZQUIERDA
+                        for (int j = CeldaActual.NroColumna - 1; j >= 0; j--)
+                        {
+                            if (VerificarLugar(CeldaActual.NroFila, j))
+                            {
+                                Matriz[CeldaActual.NroFila, j].Legal_Movim = false;
+                            }
+                        }
+                        break;
+
+                    case "Torre2":
+                        //ABAJO 
+                        for (int i = CeldaActual.NroFila + 1; i < Tam; i++)
+                        {
+                            if (VerificarLugar(i, CeldaActual.NroColumna))
+                            {
+                                Matriz[i, CeldaActual.NroColumna].Legal_Movim = false;
+                            }
+                        }
+                        //ARRIBA
+                        for (int i = CeldaActual.NroFila - 1; i >= 0; i--)
+                        {
+                            if (VerificarLugar(i, CeldaActual.NroColumna))
+                            {
+                                Matriz[i, CeldaActual.NroColumna].Legal_Movim = false;
+                            }
+
+                        }
+
+                        //PARA LA DERECHA
+                        for (int j = CeldaActual.NroColumna + 1; j < Tam; j++)
+                        {
+                            if (VerificarLugar(CeldaActual.NroFila, j))
+                            {
+                                Matriz[CeldaActual.NroFila, j].Legal_Movim = false;
+                            }
+                        }
+                        //PARA LA IZQUIERDA
+                        for (int j = CeldaActual.NroColumna - 1; j >= 0; j--)
+                        {
+                            if (VerificarLugar(CeldaActual.NroFila, j))
+                            {
+                                Matriz[CeldaActual.NroFila, j].Legal_Movim = false;
+                            }
+                        }
+                        break;
+
+                    case "Alfil_Negro":
+
+                        //DIAGONAL HACIA ABAJO DERECHA
+                        r = CeldaActual.NroColumna;
+
+                        for (int i = CeldaActual.NroFila + 1; i < Tam; i++)
+                        {
+                            r++;
+                            if (VerificarLugar(i, r))
+                            {
+                                Matriz[i, r].Legal_Movim = false;
+                            }
+                        }
+                        //DIAGONAL HACIA ARRIBA IZQUIERDA
+                        r = CeldaActual.NroColumna;
+                        for (int i = CeldaActual.NroFila - 1; i >= 0; i--)
+                        {
+                            r--;
+                            if (VerificarLugar(i, r))
+                            {
+                                Matriz[i, r].Legal_Movim = false;
+                            }
+                        }
+                        //DIAGONAL HACIA ARRIBA DERECHA
+                        r = CeldaActual.NroColumna;
+                        for (int i = CeldaActual.NroFila - 1; i >= 0; i--)
+                        {
+                            r++;
+                            if (VerificarLugar(i, r))
+                            {
+                                Matriz[i, r].Legal_Movim = false;
+                            }
+                        }
+                        //DIAGONAL HACIA ABAJO IZQUIERDA
+                        r = CeldaActual.NroColumna;
+                        for (int i = CeldaActual.NroFila + 1; i < Tam; i++)
+                        {
+                            r--;
+                            if (VerificarLugar(i, r))
+                            {
+                                Matriz[i, r].Legal_Movim = false;
+                            }
+
+                        }
+
+                        break;
+
+                    case "Alfil_Blanco":
+
+                        //DIAGONAL HACIA ABAJO DERECHA
+                        r = CeldaActual.NroColumna;
+
+                        for (int i = CeldaActual.NroFila + 1; i < Tam; i++)
+                        {
+                            r++;
+                            if (VerificarLugar(i, r))
+                            {
+                                Matriz[i, r].Legal_Movim = false;
+                            }
+                        }
+                        //DIAGONAL HACIA ARRIBA IZQUIERDA
+                        r = CeldaActual.NroColumna;
+                        for (int i = CeldaActual.NroFila - 1; i >= 0; i--)
+                        {
+                            r--;
+                            if (VerificarLugar(i, r))
+                            {
+                                Matriz[i, r].Legal_Movim = false;
+                            }
+                        }
+                        //DIAGONAL HACIA ARRIBA DERECHA
+                        r = CeldaActual.NroColumna;
+                        for (int i = CeldaActual.NroFila - 1; i >= 0; i--)
+                        {
+                            r++;
+                            if (VerificarLugar(i, r))
+                            {
+                                Matriz[i, r].Legal_Movim = false;
+                            }
+                        }
+                        //DIAGONAL HACIA ABAJO IZQUIERDA
+                        r = CeldaActual.NroColumna;
+                        for (int i = CeldaActual.NroFila + 1; i < Tam; i++)
+                        {
+                            r--;
+                            if (VerificarLugar(i, r))
+                            {
+                                Matriz[i, r].Legal_Movim = false;
+                            }
+
+                        }
+
+                        break;
+
+                }
+            }
+        }
+
         // FUNCION REINICIA TODO EL TABLERO
         public void ReiniciarTablero()
         {
