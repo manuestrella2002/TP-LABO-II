@@ -40,9 +40,12 @@ namespace TP_LABO_II
             //PIDO UNA CORDENADA X,Y DE DONDE PONER LA PIEZA
             Celda Celda_Actual = ColocarCeldaActual(6,5);
             Celda_Actual.Ocupados = true;
-           
+            Celda_Actual = ColocarCeldaActual(0, 0);
+            Celda_Actual.Ocupados = true;
             //CALCULO DE TODOS LOS MOVIMIENTOS LEGALES POSIBLES, ES DECIR, A DONDE SE PUEDE MOVER LA FICHA
-            MiTablero.MarcarProx_MovLegal(Celda_Actual, Torre1);
+            MiTablero.MarcarProx_MovLegal(Celda_Actual, "Torre");
+            MiTablero.MarcarProx_MovLegal(Celda_Actual, "Caballo");
+
 
 
             //VUELVO A IMPIRMIR PARA VERIFICAR
@@ -52,25 +55,25 @@ namespace TP_LABO_II
 
         }
 
-        private void Poda()
-        {
-            Random myObject = new Random();
-            int ranNum1 = myObject.Next(3, 4);
-            int ranNum2 = myObject.Next(3, 4);
+        //private void Poda()
+        //{
+        //    Random myObject = new Random();
+        //    int ranNum1 = myObject.Next(3, 4);
+        //    int ranNum2 = myObject.Next(3, 4);
 
-            //METODO DE PODA
-            //COLOCAMOS REINA EN ALGUNO DE LOS CUATRO CUADRADOS CENTRALES
-            comboBox1.Text = "Reina";
-            Lista_Piezas.Remove(comboBox1.Text);
-            Matriz_Botones_Click(Matriz_Botones[ranNum1, ranNum2], null);
+        //    //METODO DE PODA
+        //    //COLOCAMOS REINA EN ALGUNO DE LOS CUATRO CUADRADOS CENTRALES
+        //    comboBox1.Text = "Reina";
+        //    Lista_Piezas.Remove(comboBox1.Text);
+        //    Matriz_Botones_Click(Matriz_Botones[ranNum1, ranNum2], null);
 
 
-            //COLOCAMOS TORRE EN LA ESQUINA SUPERIOR IZQUIERDA POSICION(0,0)
-            comboBox1.Text = "Torre";
-            Lista_Piezas.Remove(comboBox1.Text);
-            Matriz_Botones_Click(Matriz_Botones[0, 0], null);
+        //    //COLOCAMOS TORRE EN LA ESQUINA SUPERIOR IZQUIERDA POSICION(0,0)
+        //    comboBox1.Text = "Torre";
+        //    Lista_Piezas.Remove(comboBox1.Text);
+        //    Matriz_Botones_Click(Matriz_Botones[0, 0], null);
 
-        }
+        //}
 
         //METODO PARA DAR CORDENADAS X,Y SE RETORNA UNA POSICION DE UNA CELDA
         private static Celda ColocarCeldaActual(int Fila_Actual, int Columna_Actual)
@@ -84,7 +87,7 @@ namespace TP_LABO_II
         }
 
         //Imprime el Tablero en la consola. Usar x para el lugar de la pieza, + para movimientos legales y .
-        private static void ImprimirTablero(Tablero miTablero)
+        public static void ImprimirTablero(Tablero miTablero)
         {
             for (int i = 0; i < miTablero.Tam; i++)
             {

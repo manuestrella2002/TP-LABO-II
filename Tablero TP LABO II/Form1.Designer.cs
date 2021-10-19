@@ -50,8 +50,10 @@ namespace Tablero_TP_LABO_II
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
-            "Caballo",
-            "Torre",
+            "Caballo1",
+            "Caballo2",
+            "Torre1",
+            "Torre2",
             "Reina",
             "Rey",
             "Alfil_Negro",

@@ -34,7 +34,7 @@ namespace ModeloTablero
         //Probablemente  hay que cambiar "string chessPiece" por Pieza1 de tipo Pieza
 
         //FUNCION PARA MARCAR DE ACUERDO A LA PIEZA QUE SE LE PASA LAS POSICIONES A LAS QUE ATACA
-        public void MarcarProx_MovLegal(Celda CeldaActual, Piezas PiezaAjedrez) 
+        public void MarcarProx_MovLegal(Celda CeldaActual, string PiezaAjedrez) 
         {
             //Paso 1: Borrar todos los movimientos legales previos
             //BASICAMENTE LIMPIA EL TABLERO
@@ -46,22 +46,18 @@ namespace ModeloTablero
                     Matriz[i, j].Ocupados = false;
                 }
             }
-            
+
             //CAMBIA LA POSICION DONDE SE COLOCA LA PIEZA A OCUPADO
             Matriz[CeldaActual.NroFila, CeldaActual.NroColumna].Ocupados = true;
 
-            Caballo caballo = new Caballo();
-            Alfil alfil = new Alfil();
-            Rey rey = new Rey();
-            Reina reina = new Reina();
-            Torre torre = new Torre();
+            
 
 
             //Paso 2: Buscar todos los movientos legales y marcar las celdas como 1
             switch(PiezaAjedrez)
             {
                 //PENSAMOS HACER DINAMIC CAST PARA CADA UNA DE LAS PIEZAS
-               case Caballo pieza_caballo:
+               case "Caballo1":
                     if (VerificarLugar(CeldaActual.NroFila-2,CeldaActual.NroColumna-1))
                     {
                         Matriz[CeldaActual.NroFila - 2, CeldaActual.NroColumna - 1].Legal_Movim = true;
@@ -96,7 +92,42 @@ namespace ModeloTablero
                     }
                     break;
 
-                case Rey pieza_rey:
+                case "Caballo2":
+                    if (VerificarLugar(CeldaActual.NroFila - 2, CeldaActual.NroColumna - 1))
+                    {
+                        Matriz[CeldaActual.NroFila - 2, CeldaActual.NroColumna - 1].Legal_Movim = true;
+                    }
+                    if (VerificarLugar(CeldaActual.NroFila + 2, CeldaActual.NroColumna + 1))
+                    {
+                        Matriz[CeldaActual.NroFila + 2, CeldaActual.NroColumna + 1].Legal_Movim = true;
+                    }
+                    if (VerificarLugar(CeldaActual.NroFila + 2, CeldaActual.NroColumna - 1))
+                    {
+                        Matriz[CeldaActual.NroFila + 2, CeldaActual.NroColumna - 1].Legal_Movim = true;
+                    }
+                    if (VerificarLugar(CeldaActual.NroFila - 2, CeldaActual.NroColumna + 1))
+                    {
+                        Matriz[CeldaActual.NroFila - 2, CeldaActual.NroColumna + 1].Legal_Movim = true;
+                    }
+                    if (VerificarLugar(CeldaActual.NroFila + 1, CeldaActual.NroColumna + 2))
+                    {
+                        Matriz[CeldaActual.NroFila + 1, CeldaActual.NroColumna + 2].Legal_Movim = true;
+                    }
+                    if (VerificarLugar(CeldaActual.NroFila + 1, CeldaActual.NroColumna - 2))
+                    {
+                        Matriz[CeldaActual.NroFila + 1, CeldaActual.NroColumna - 2].Legal_Movim = true;
+                    }
+                    if (VerificarLugar(CeldaActual.NroFila - 1, CeldaActual.NroColumna + 2))
+                    {
+                        Matriz[CeldaActual.NroFila - 1, CeldaActual.NroColumna + 2].Legal_Movim = true;
+                    }
+                    if (VerificarLugar(CeldaActual.NroFila - 1, CeldaActual.NroColumna - 2))
+                    {
+                        Matriz[CeldaActual.NroFila - 1, CeldaActual.NroColumna - 2].Legal_Movim = true;
+                    }
+                    break;
+
+                case "Rey":
                     if (VerificarLugar(CeldaActual.NroFila - 1, CeldaActual.NroColumna))
                     {
                         Matriz[CeldaActual.NroFila - 1, CeldaActual.NroColumna].Legal_Movim = true;
@@ -130,7 +161,7 @@ namespace ModeloTablero
                         Matriz[CeldaActual.NroFila + 1, CeldaActual.NroColumna-1].Legal_Movim = true;
                     }
                     break;
-                case Reina pieza_reina:
+                case "Reina":
                     //ABAJO 
                     for (int i = CeldaActual.NroFila+1; i < Tam ; i++)
                     {
@@ -210,7 +241,7 @@ namespace ModeloTablero
                     }
                     break;
 
-                case Torre pieza_torre:
+                case "Torre1":
                     //ABAJO 
                     for (int i = CeldaActual.NroFila + 1; i < Tam; i++)
                     {
@@ -247,7 +278,44 @@ namespace ModeloTablero
                     }
                     break;
 
-                case Alfil pieza_alfil:
+                case "Torre2":
+                    //ABAJO 
+                    for (int i = CeldaActual.NroFila + 1; i < Tam; i++)
+                    {
+                        if (VerificarLugar(i, CeldaActual.NroColumna))
+                        {
+                            Matriz[i, CeldaActual.NroColumna].Legal_Movim = true;
+                        }
+                    }
+                    //ARRIBA
+                    for (int i = CeldaActual.NroFila - 1; i >= 0; i--)
+                    {
+                        if (VerificarLugar(i, CeldaActual.NroColumna))
+                        {
+                            Matriz[i, CeldaActual.NroColumna].Legal_Movim = true;
+                        }
+
+                    }
+
+                    //PARA LA DERECHA
+                    for (int j = CeldaActual.NroColumna + 1; j < Tam; j++)
+                    {
+                        if (VerificarLugar(CeldaActual.NroFila, j))
+                        {
+                            Matriz[CeldaActual.NroFila, j].Legal_Movim = true;
+                        }
+                    }
+                    //PARA LA IZQUIERDA
+                    for (int j = CeldaActual.NroColumna - 1; j >= 0; j--)
+                    {
+                        if (VerificarLugar(CeldaActual.NroFila, j))
+                        {
+                            Matriz[CeldaActual.NroFila, j].Legal_Movim = true;
+                        }
+                    }
+                    break;
+
+                case "Alfil_Negro":
 
                     //DIAGONAL HACIA ABAJO DERECHA
                     r = CeldaActual.NroColumna;
@@ -292,6 +360,53 @@ namespace ModeloTablero
 
                     }
                     
+                    break;
+
+                case "Alfil_Blanco":
+
+                    //DIAGONAL HACIA ABAJO DERECHA
+                    r = CeldaActual.NroColumna;
+
+                    for (int i = CeldaActual.NroFila + 1; i < Tam; i++)
+                    {
+                        r++;
+                        if (VerificarLugar(i, r))
+                        {
+                            Matriz[i, r].Legal_Movim = true;
+                        }
+                    }
+                    //DIAGONAL HACIA ARRIBA IZQUIERDA
+                    r = CeldaActual.NroColumna;
+                    for (int i = CeldaActual.NroFila - 1; i >= 0; i--)
+                    {
+                        r--;
+                        if (VerificarLugar(i, r))
+                        {
+                            Matriz[i, r].Legal_Movim = true;
+                        }
+                    }
+                    //DIAGONAL HACIA ARRIBA DERECHA
+                    r = CeldaActual.NroColumna;
+                    for (int i = CeldaActual.NroFila - 1; i >= 0; i--)
+                    {
+                        r++;
+                        if (VerificarLugar(i, r))
+                        {
+                            Matriz[i, r].Legal_Movim = true;
+                        }
+                    }
+                    //DIAGONAL HACIA ABAJO IZQUIERDA
+                    r = CeldaActual.NroColumna;
+                    for (int i = CeldaActual.NroFila + 1; i < Tam; i++)
+                    {
+                        r--;
+                        if (VerificarLugar(i, r))
+                        {
+                            Matriz[i, r].Legal_Movim = true;
+                        }
+
+                    }
+
                     break;
 
             }

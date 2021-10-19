@@ -26,10 +26,10 @@ namespace Tablero_TP_LABO_II
         //LISTA DE PIEZAS SE PUEDE CHARLAR ERA SOLO PARA VER
         static List<string> Lista_Piezas = new List<string>()
         {
-           "Caballo",
-           "Caballo",
-           "Torre",
-           "Torre",
+           "Caballo1",
+           "Caballo2",
+           "Torre1",
+           "Torre2",
            "Alfil_Negro",
            "Alfil_Blanco",
            "Reina",
@@ -48,11 +48,14 @@ namespace Tablero_TP_LABO_II
             InitializeComponent();
             ArmarMatriz();
 
-            //while(Solucion==false)
-            //{
-            //    Solucion=Backtraking();
-            //}
-            
+
+            Poda();
+           Solucion=Backtracking(0);
+            if (Solucion)
+            {
+                MessageBox.Show("Funciono");
+            }
+
 
         }
 
@@ -70,39 +73,76 @@ namespace Tablero_TP_LABO_II
 
 
             //COLOCAMOS TORRE EN LA ESQUINA SUPERIOR IZQUIERDA POSICION(0,0)
-            comboBox1.Text = "Torre";
+            comboBox1.Text = "Torre1";
             Lista_Piezas.Remove(comboBox1.Text);
             Matriz_Botones_Click(Matriz_Botones[0, 0], null);
 
         }
 
 
-        //private bool Backtraking(int n,int columna)
-        //{
-        //    {
-        //        if (Lista_Piezas.Count == 0 )
-        //        {
-        //            return true;
-        //        }
-        //        //variable res is use for possible backtracking 
-        //        bool res = false;
-        //        for (int i = 0; i <= MiTablero.Tam - 1; i++)
-        //        {
-        //            if (MiTablero.Matriz[])
-        //            {
-        //                grid[row][i] = 1;
-        //                //recursive call solve(n, row+1) for next queen (row+1)
-        //                res = Backtraking(n, row + 1) || res;//if res ==false then backtracking will occur 
-        //                                               //by assigning the grid[row][i] = 0
+        public bool Backtracking(int Fila)//N ES NUMERO PIEZAS
+        {
+            // if `N` queens are placed successfully, print the solution
+            if (Fila == 8)
+            {
+                return true;
+            }
 
-        //                grid[row][i] = 0;
-        //            }
-        //        }
-        //        return res;
-        //    }
+            // place queen at every square in the current row `r`
+            // and recur for each valid movement
+            for (int i = 0; i < Lista_Piezas.Count; i++)
+            {
+                // if no two queens threaten each other
+                if (ChequearLugares(Fila, i))
+                {
+                    // place queen on the current square
+                    Random myObject = new Random();
+                    int ranNum1 = myObject.Next(0, Lista_Piezas.Count);
 
-        //    return true;
-        //}
+                    comboBox1.Text = Lista_Piezas.ElementAt(ranNum1);
+                    Matriz_Botones_Click(Matriz_Botones[Fila, i], null);
+                    Lista_Piezas.Remove(comboBox1.Text);
+
+                    // recur for the next row
+                    Backtracking(Fila + 1);
+
+                    // backtrack and remove the queen from the current square
+                    MiTablero.Matriz[Fila,i].Ocupados=false;
+                }
+            }
+            return true;
+        }
+        public bool ChequearLugares(int fila, int columna)
+        {
+            // return 0 if two queens share the same column
+            for (int i = 0; i < fila; i++)
+            {
+                if (MiTablero.Matriz[i,columna].Ocupados == true || MiTablero.Matriz[i, columna].Legal_Movim == true)
+                {
+                    return false;
+                }
+            }
+
+            // return 0 if two queens share the same `` diagonal
+            for (int i = fila, j = columna; i >= 0 && j >= 0; i--, j--)
+            {
+                if (MiTablero.Matriz[i, j].Ocupados == true || MiTablero.Matriz[i, j].Legal_Movim == true)
+                {
+                    return false;
+                }
+            }
+
+            // return 0 if two queens share the same `/` diagonal
+            for (int i = fila, j = columna; i >= 0 && j < Lista_Piezas.Count; i--, j++)
+            {
+                if (MiTablero.Matriz[i, j].Ocupados == true || MiTablero.Matriz[i, j].Legal_Movim == true)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
 
         private void ArmarMatriz()
         {
@@ -133,11 +173,11 @@ namespace Tablero_TP_LABO_II
                     //LE DOY COLOR A LOS BOTONES 
                     if (i%2 == 0 && j%2 == 0)
                     {
-                        Matriz_Botones[i, j].BackColor = Color.FromArgb(217, 217, 217);
+                        Matriz_Botones[i, j].BackColor = Color.FromArgb(217, 217, 217);//BLANCO
                     }
                     if (i % 2 == 0 && j % 2 != 0) 
                     {
-                        Matriz_Botones[i, j].BackColor = Color.FromArgb(146, 146, 146);
+                        Matriz_Botones[i, j].BackColor = Color.FromArgb(146, 146, 146);//GRIS
                     }
                     if (i % 2 != 0 && j % 2 == 0)
                     {
@@ -159,7 +199,7 @@ namespace Tablero_TP_LABO_II
             
         }
         //METODO PARA REINICIAR BOTONES Y EL TABLERO
-        private void ReiniciarMatriz()
+        private void ReiniciarMatrizBotones()
         {
             int buttonSize = panel1.Width / MiTablero.Tam;
 
@@ -202,46 +242,78 @@ namespace Tablero_TP_LABO_II
             //CON "(BUTTON)"  CASTEO EL SENDER QUE ES UN OBJETO A UN BOTTON, ES DECIR PROMETO QUE VA A SER UN BOTON
             Button clickedButton = (Button)sender;
             
-            //SE CREA UNA POSION DE TIPO POINT Y LE ALMACENO LO QUE SE HABIA GUARDADO EN EL TAG
+            //SE CREA UNA POSICION DE TIPO POINT Y LE ALMACENO LO QUE SE HABIA GUARDADO EN EL TAG
             Point Lugar = (Point)clickedButton.Tag;
 
-            //CREO VARIABLES PARA ALMACENAR LO EXTRAIDO CON VARIABLE LUGAR
+            //CREO VARIABLES PARA ALMACENAR LO EXTRAIDO CON VARIABLE LUGAR DE TIPO POINT
             int x = Lugar.X;
             int y = Lugar.Y;
 
+            /*
+             * NOTAR QUE LA MATRIZ DE BOTONES NO ES LO MISMO QUE LA MATRIZ DE "MiTablero", ESTA ÚLTIMA ALMACENA LAS POSICIONES OCUPADAS POR 
+             * LAS PIEZAS Y LOS LUGARES A LOS QUE ATACAN. LA PRIMERA MATRIZ SOLO SE USA PARA MOSTAR EN EL FORM.
+             * 
+             */
+
+           //CREA UNA CELDA AUXILIAR PARA OBTENER LA CELDA DEL TABLERO EN LA POSICION (X,Y)
             Celda Celda_Actual = MiTablero.Matriz[x, y];
-            //DEPENDE D ELO QUE SE ELIJA SE CREA UNA VARIABLE Y LUEGO SE CALCULAN LOS MOVIMIENTOS POSIBLES
-            
+            //DEPENDE DE LO QUE SE ELIJA SE CREA UNA VARIABLE Y LUEGO SE CALCULAN LOS MOVIMIENTOS POSIBLES
+
             ////BUSCO SI LA PIEZA YA SE ELIMINO
             //if (Lista_Piezas.BinarySearch(comboBox1.Text)<0)
             //{
             //    return;
             //}
-
+           
            
 
-            if (comboBox1.Text=="Caballo")
+            if (comboBox1.Text=="Caballo1")
             {
-                Caballo Caballo1 = new Caballo();
-                MiTablero.MarcarProx_MovLegal(Celda_Actual, Caballo1);
-                string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Iconos Ajedrez\Caballo.jpg");
+                
+                MiTablero.MarcarProx_MovLegal(Celda_Actual, comboBox1.Text);
 
+                //POSICION DE LA FOTO DEL CABALLO
+                string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Iconos Ajedrez\Caballo.jpg");
                 Matriz_Botones[x, y].BackgroundImage = Image.FromFile(path);
                 Matriz_Botones[x, y].BackgroundImageLayout = ImageLayout.Zoom;
+
             }
-            if (comboBox1.Text == "Torre")
+            if (comboBox1.Text == "Caballo2")
+            {
+
+                MiTablero.MarcarProx_MovLegal(Celda_Actual, comboBox1.Text);
+
+                //POSICION DE LA FOTO DEL CABALLO
+                string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Iconos Ajedrez\Caballo.jpg");
+                Matriz_Botones[x, y].BackgroundImage = Image.FromFile(path);
+                Matriz_Botones[x, y].BackgroundImageLayout = ImageLayout.Zoom;
+
+            }
+            if (comboBox1.Text == "Torre1")
             {
                 Torre Torre1 = new Torre();
-                MiTablero.MarcarProx_MovLegal(Celda_Actual, Torre1);
+                MiTablero.MarcarProx_MovLegal(Celda_Actual, comboBox1.Text);
+
                 string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Iconos Ajedrez\Torre.jpg");
 
                 Matriz_Botones[x, y].BackgroundImage = Image.FromFile(path);
                 Matriz_Botones[x, y].BackgroundImageLayout = ImageLayout.Zoom;
             }
+            if (comboBox1.Text == "Torre2")
+            {
+                Torre Torre1 = new Torre();
+                MiTablero.MarcarProx_MovLegal(Celda_Actual, comboBox1.Text);
+
+                string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Iconos Ajedrez\Torre.jpg");
+
+                Matriz_Botones[x, y].BackgroundImage = Image.FromFile(path);
+                Matriz_Botones[x, y].BackgroundImageLayout = ImageLayout.Zoom;
+            }
+            //REVISAR ACA LO DE LOS ALFILES
             if (comboBox1.Text == "Alfil_Blanco")
             {
                 Alfil Alfil1 = new Alfil();
-                MiTablero.MarcarProx_MovLegal(Celda_Actual, Alfil1);
+                MiTablero.MarcarProx_MovLegal(Celda_Actual, comboBox1.Text);
                 string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Iconos Ajedrez\Alfil.jpg");
 
                 Matriz_Botones[x, y].BackgroundImage = Image.FromFile(path);
@@ -251,7 +323,7 @@ namespace Tablero_TP_LABO_II
             if (comboBox1.Text == "Alfil_Negro")
             {
                 Alfil Alfil1 = new Alfil();
-                MiTablero.MarcarProx_MovLegal(Celda_Actual, Alfil1);
+                MiTablero.MarcarProx_MovLegal(Celda_Actual, comboBox1.Text);
                 string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Iconos Ajedrez\Alfil.jpg");
 
                 Matriz_Botones[x, y].BackgroundImage = Image.FromFile(path);
@@ -261,7 +333,7 @@ namespace Tablero_TP_LABO_II
             if (comboBox1.Text == "Rey")
             {
                 Rey Rey1 = new Rey();
-                MiTablero.MarcarProx_MovLegal(Celda_Actual, Rey1);
+                MiTablero.MarcarProx_MovLegal(Celda_Actual, comboBox1.Text);
                 string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Iconos Ajedrez\Rey.jpg");
 
                 Matriz_Botones[x, y].BackgroundImage = Image.FromFile(path);
@@ -271,7 +343,7 @@ namespace Tablero_TP_LABO_II
             if (comboBox1.Text == "Reina")
             {
                 Reina Reina1 = new Reina();
-                MiTablero.MarcarProx_MovLegal(Celda_Actual, Reina1);
+                MiTablero.MarcarProx_MovLegal(Celda_Actual, comboBox1.Text);
                 string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Iconos Ajedrez\Reina.jpg");
 
                 Matriz_Botones[x, y].BackgroundImage = Image.FromFile(path);
@@ -303,8 +375,9 @@ namespace Tablero_TP_LABO_II
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ReiniciarMatriz();
+            ReiniciarMatrizBotones();
             MiTablero.ReiniciarTablero();
         }
     }
 }
+
