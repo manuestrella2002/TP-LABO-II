@@ -9,14 +9,20 @@ namespace ModeloTablero
 {
     public class Tablero
     {
+        //FUNCION PARA OBTENER TAMAÑO DEL TABLERO NxN
         public int Tam { get; set; }
 
+        //FUNCION PARA OBTENER LA CELDA DE LA MATRIZ[i,j]
         public Celda[,] Matriz { get; set; }
         
+        //CONSTRUCTOR DEL TABLERO
         public Tablero(int s)
         {
+
             Tam = s;
+            
             Matriz = new Celda[Tam, Tam];
+            //ASIGNA A CADA LUGAR DE LA MATRIZ[i,j] UNA CELDA CON SU POSICION(i,j)
             for (int i = 0; i < Tam; i++)
             {
                 for (int j = 0; j < Tam; j++)
@@ -25,8 +31,10 @@ namespace ModeloTablero
                 }
             }
         }
-    
-        public void MarcarProx_MovLegal(Celda CeldaActual, Piezas PiezaAjedrez) //Probablemente  hay que cambiar "string chessPiece" por Pieza1 de tipo Pieza
+        //Probablemente  hay que cambiar "string chessPiece" por Pieza1 de tipo Pieza
+
+        //FUNCION PARA MARCAR DE ACUERDO A LA PIEZA QUE SE LE PASA LAS POSICIONES A LAS QUE ATACA
+        public void MarcarProx_MovLegal(Celda CeldaActual, Piezas PiezaAjedrez) 
         {
             //Paso 1: Borrar todos los movimientos legales previos
             //BASICAMENTE LIMPIA EL TABLERO
@@ -38,7 +46,8 @@ namespace ModeloTablero
                     Matriz[i, j].Ocupados = false;
                 }
             }
-
+            
+            //CAMBIA LA POSICION DONDE SE COLOCA LA PIEZA A OCUPADO
             Matriz[CeldaActual.NroFila, CeldaActual.NroColumna].Ocupados = true;
 
             Caballo caballo = new Caballo();
@@ -288,6 +297,7 @@ namespace ModeloTablero
             }
         }
 
+        // FUNCION REINICIA TODO EL TABLERO
         public void ReiniciarTablero()
         {
             for (int i = 0; i < Tam; i++)
@@ -301,14 +311,15 @@ namespace ModeloTablero
         }
 
 
-
-        //VERIFICA SI LA COORDENADA PASADDA EXISTE EN EL TABLERO SINO RETORNA FALSE
+        //VERIFICA SI LA COORDENADA PASADA EXISTE EN EL TABLERO SINO RETORNA FALSE
         private bool VerificarLugar(int x1, int y2)
         {
             if (x1>=0 && x1<Tam && y2>=0 &&  y2< Tam)
             {
-                //EL TRUE O FALSE SE PUEDE CAMBIAR POR ENUMS QUE DIGAN SEGURO Y NO SEGURO
-                return true;
+              
+
+                  return true;
+                
             }
             else
             {
