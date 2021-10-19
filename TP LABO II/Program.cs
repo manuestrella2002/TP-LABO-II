@@ -52,6 +52,26 @@ namespace TP_LABO_II
 
         }
 
+        private void Poda()
+        {
+            Random myObject = new Random();
+            int ranNum1 = myObject.Next(3, 4);
+            int ranNum2 = myObject.Next(3, 4);
+
+            //METODO DE PODA
+            //COLOCAMOS REINA EN ALGUNO DE LOS CUATRO CUADRADOS CENTRALES
+            comboBox1.Text = "Reina";
+            Lista_Piezas.Remove(comboBox1.Text);
+            Matriz_Botones_Click(Matriz_Botones[ranNum1, ranNum2], null);
+
+
+            //COLOCAMOS TORRE EN LA ESQUINA SUPERIOR IZQUIERDA POSICION(0,0)
+            comboBox1.Text = "Torre";
+            Lista_Piezas.Remove(comboBox1.Text);
+            Matriz_Botones_Click(Matriz_Botones[0, 0], null);
+
+        }
+
         //METODO PARA DAR CORDENADAS X,Y SE RETORNA UNA POSICION DE UNA CELDA
         private static Celda ColocarCeldaActual(int Fila_Actual, int Columna_Actual)
         {
@@ -73,11 +93,11 @@ namespace TP_LABO_II
                     Celda C_aux = miTablero.Matriz[i, j];
                     if (C_aux.Ocupados==true)
                     {
-                        Console.Write("X");
+                        Console.Write("|X|");
                     }
                     else if(C_aux.Legal_Movim==true)
                     {
-                        Console.Write("+");
+                        Console.Write("|+|");
                     }
                     else
                     {
@@ -86,7 +106,7 @@ namespace TP_LABO_II
                 }
                 Console.WriteLine();
             }
-            Console.WriteLine("=================================");
+            Console.WriteLine("========================");
 
         }
     }
