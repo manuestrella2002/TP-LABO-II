@@ -47,11 +47,11 @@ namespace Tablero_TP_LABO_II
         {
             InitializeComponent();
             ArmarMatriz();
-            
-            while(Solucion==false)
-            {
-                Solucion=Backtraking();
-            }
+
+            //while(Solucion==false)
+            //{
+            //    Solucion=Backtraking();
+            //}
             
 
         }
@@ -77,32 +77,32 @@ namespace Tablero_TP_LABO_II
         }
 
 
-        private bool Backtraking(int n,int columna)
-        {
-            {
-                if (Lista_Piezas.Count == 0 )
-                {
-                    return true;
-                }
-                //variable res is use for possible backtracking 
-                bool res = false;
-                for (int i = 0; i <= MiTablero.Tam - 1; i++)
-                {
-                    if (MiTablero.Matriz[])
-                    {
-                        grid[row][i] = 1;
-                        //recursive call solve(n, row+1) for next queen (row+1)
-                        res = Backtraking(n, row + 1) || res;//if res ==false then backtracking will occur 
-                                                       //by assigning the grid[row][i] = 0
+        //private bool Backtraking(int n,int columna)
+        //{
+        //    {
+        //        if (Lista_Piezas.Count == 0 )
+        //        {
+        //            return true;
+        //        }
+        //        //variable res is use for possible backtracking 
+        //        bool res = false;
+        //        for (int i = 0; i <= MiTablero.Tam - 1; i++)
+        //        {
+        //            if (MiTablero.Matriz[])
+        //            {
+        //                grid[row][i] = 1;
+        //                //recursive call solve(n, row+1) for next queen (row+1)
+        //                res = Backtraking(n, row + 1) || res;//if res ==false then backtracking will occur 
+        //                                               //by assigning the grid[row][i] = 0
 
-                        grid[row][i] = 0;
-                    }
-                }
-                return res;
-            }
+        //                grid[row][i] = 0;
+        //            }
+        //        }
+        //        return res;
+        //    }
 
-            return true;
-        }
+        //    return true;
+        //}
 
         private void ArmarMatriz()
         {
@@ -158,6 +158,43 @@ namespace Tablero_TP_LABO_II
             }
             
         }
+        //METODO PARA REINICIAR BOTONES Y EL TABLERO
+        private void ReiniciarMatriz()
+        {
+            int buttonSize = panel1.Width / MiTablero.Tam;
+
+            //EL PANEL TIENE QUE SER UN CUADRADO ENTONCES LE DOY FORMA
+            panel1.Height = panel1.Width;
+            for (int i = 0; i < MiTablero.Tam; i++)
+            {
+                for (int j = 0; j < MiTablero.Tam; j++)
+                {
+                    Matriz_Botones[i, j].Height = buttonSize;
+                    Matriz_Botones[i, j].Width = buttonSize;
+                    Matriz_Botones[i, j].BackgroundImage = default;
+                    
+
+                    if (i % 2 == 0 && j % 2 == 0)
+                    {
+                        Matriz_Botones[i, j].BackColor = Color.FromArgb(217, 217, 217);
+                    }
+                    if (i % 2 == 0 && j % 2 != 0)
+                    {
+                        Matriz_Botones[i, j].BackColor = Color.FromArgb(146, 146, 146);
+                    }
+                    if (i % 2 != 0 && j % 2 == 0)
+                    {
+                        Matriz_Botones[i, j].BackColor = Color.FromArgb(146, 146, 146);
+                    }
+                    if (i % 2 != 0 && j % 2 != 0)
+                    {
+                        Matriz_Botones[i, j].BackColor = Color.FromArgb(217, 217, 217);
+                    }
+
+                }
+            }
+        }
+
 
         private void Matriz_Botones_Click(object sender, EventArgs e)
         {
@@ -175,11 +212,11 @@ namespace Tablero_TP_LABO_II
             Celda Celda_Actual = MiTablero.Matriz[x, y];
             //DEPENDE D ELO QUE SE ELIJA SE CREA UNA VARIABLE Y LUEGO SE CALCULAN LOS MOVIMIENTOS POSIBLES
             
-            //BUSCO SI LA PIEZA YA SE ELIMINO
-            if (Lista_Piezas.BinarySearch(comboBox1.Text)<0)
-            {
-                return;
-            }
+            ////BUSCO SI LA PIEZA YA SE ELIMINO
+            //if (Lista_Piezas.BinarySearch(comboBox1.Text)<0)
+            //{
+            //    return;
+            //}
 
            
 
@@ -262,6 +299,12 @@ namespace Tablero_TP_LABO_II
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ReiniciarMatriz();
+            MiTablero.ReiniciarTablero();
         }
     }
 }
