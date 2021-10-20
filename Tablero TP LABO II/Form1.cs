@@ -60,15 +60,10 @@ namespace Tablero_TP_LABO_II
             Backtracking();
             
 
-            for (int i = 0; i < 8; i++)
-            {
-
-            }
-
-            if (Solucion==true)
-            {
-                MessageBox.Show("Funcionó");
-            }
+            //if (Solucion==true)
+            //{
+            //    MessageBox.Show("Funcionó");
+            //}
 
 
         }
@@ -390,7 +385,6 @@ namespace Tablero_TP_LABO_II
             }
             if (comboBox1.Text == "Torre1")
             {
-                Torre Torre1 = new Torre();
                 MiTablero.MarcarProx_MovLegal(Celda_Actual, comboBox1.Text);
 
                 string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Iconos Ajedrez\Torre.jpg");
@@ -400,7 +394,6 @@ namespace Tablero_TP_LABO_II
             }
             if (comboBox1.Text == "Torre2")
             {
-                Torre Torre1 = new Torre();
                 MiTablero.MarcarProx_MovLegal(Celda_Actual, comboBox1.Text);
 
                 string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Iconos Ajedrez\Torre.jpg");
@@ -411,7 +404,6 @@ namespace Tablero_TP_LABO_II
             //REVISAR ACA LO DE LOS ALFILES
             if (comboBox1.Text == "Alfil_Blanco")
             {
-                Alfil Alfil1 = new Alfil();
                 MiTablero.MarcarProx_MovLegal(Celda_Actual, comboBox1.Text);
                 string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Iconos Ajedrez\Alfil.jpg");
 
@@ -421,7 +413,6 @@ namespace Tablero_TP_LABO_II
             }
             if (comboBox1.Text == "Alfil_Negro")
             {
-                Alfil Alfil1 = new Alfil();
                 MiTablero.MarcarProx_MovLegal(Celda_Actual, comboBox1.Text);
                 string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Iconos Ajedrez\Alfil.jpg");
 
@@ -431,7 +422,6 @@ namespace Tablero_TP_LABO_II
             }
             if (comboBox1.Text == "Rey")
             {
-                Rey Rey1 = new Rey();
                 MiTablero.MarcarProx_MovLegal(Celda_Actual, comboBox1.Text);
                 string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Iconos Ajedrez\Rey.jpg");
 
@@ -441,7 +431,6 @@ namespace Tablero_TP_LABO_II
             }
             if (comboBox1.Text == "Reina")
             {
-                Reina Reina1 = new Reina();
                 MiTablero.MarcarProx_MovLegal(Celda_Actual, comboBox1.Text);
                 string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Iconos Ajedrez\Reina.jpg");
 
