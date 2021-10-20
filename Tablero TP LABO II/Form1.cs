@@ -152,38 +152,47 @@ namespace Tablero_TP_LABO_II
                 //    }
                 //}
             */
-            Random myObject = new Random();
-            int ranNum1 = myObject.Next(0, Lista_Piezas.Count);
-
-            for (int i = 1; i < 7; i++)
+            if (VerificarSolucion() == true)
             {
-                for (int j = 1; j < 7; j++)
+                return true;
+            }
+            else
+            {
+                Random myObject = new Random();
+                int ranNum1 = myObject.Next(0, Lista_Piezas.Count);
+
+                comboBox1.Text = Lista_Piezas[ranNum1];
+
+
+                for (int i = 1; i < 7; i++)
                 {
-                    if (ChequearLugares(i, j)==false)
+                    for (int j = 1; j < 7; j++)
                     {
-                        comboBox1.Text = Lista_Piezas[ranNum1];
-                        Matriz_Botones_Click(Matriz_Botones[i, j], null);
-                        Lista_Piezas_Sacadas.Add(comboBox1.Text);
-                        Lista_Piezas.Remove(comboBox1.Text);
-                        
-                        if (Lista_Piezas.Count==0)
+                        if (ChequearLugares(i, j) == false)
                         {
-                            if (VerificarSolucion()==false)
+                            Matriz_Botones_Click(Matriz_Botones[i, j], null);
+                            Lista_Piezas_Sacadas.Add(comboBox1.Text);
+                            Lista_Piezas.Remove(comboBox1.Text);
+
+                            if (Lista_Piezas.Count == 0)
                             {
-                                MiTablero.DesmarcarLugares(MiTablero.Matriz[i, j], Lista_Piezas_Sacadas.Last());
-                                Lista_Piezas.Add(Lista_Piezas_Sacadas.Last());
-                                Lista_Piezas_Sacadas.RemoveAt(Lista_Piezas_Sacadas.Count - 1);
-                                Backtracking();
+                                if (VerificarSolucion() == false)
+                                {
+                                    MiTablero.DesmarcarLugares(MiTablero.Matriz[i, j], Lista_Piezas_Sacadas.Last());
+                                    Lista_Piezas.Add(Lista_Piezas_Sacadas.Last());
+                                    Lista_Piezas_Sacadas.RemoveAt(Lista_Piezas_Sacadas.Count - 1);
+                                    Backtracking();
+                                }
+
+                                break;
                             }
-                            
-                            break;
+                            Backtracking();
                         }
-                        Backtracking();
                     }
                 }
+
+                return true;
             }
-            
-            return true;
         }
         public bool ChequearLugares(int fila, int columna)
         {
